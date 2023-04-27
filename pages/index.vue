@@ -1,15 +1,9 @@
 <template>
-  <!-- <div class="m-5">
-    <h1 class="text-center">Conselhos diarios</h1>
-    <p class="text-center p-3 border-2">{{ advice }}</p>
-  </div> -->
   <div class="main-container">
-    <!-- <h1 class="text-center">Conselhos diarios</h1> -->
-    <h1 class="main-text w-full">{{ advice }}</h1>
-    <span @click="getAdvice">gerar outro</span>
+    <span class="main-text w-8/12 bg-[gray] h-20" v-if="loading"></span>
+    <h1 @click="getAdvice" v-else class="main-text w-8/12">{{ advice }}</h1>
   </div>
 </template>
-
 <script>
 export default {
   name: 'IndexPage',
@@ -17,21 +11,19 @@ export default {
     const { data } = await $axios.get(`https://api.adviceslip.com/advice`)
     return {
       advice: data.slip.advice,
+      loading: false,
     }
   },
   data() {
     return {
       advice: '',
+      loading: true,
     }
   },
-  created() {
-    this.getAdvice()
-  },
   methods: {
-    getAdvice() {
-      this.$axios.get(`https://api.adviceslip.com/advice`).then((res) => {
-        console.log(res)
-        this.advice = res.slip.advice
+    async getAdvice() {
+      await this.$axios.get(`https://api.adviceslip.com/advice`).then((res) => {
+        this.advice = res.data.slip.advice
       })
     },
   },
