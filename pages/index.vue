@@ -13,12 +13,12 @@
 <script>
 export default {
   name: 'IndexPage',
-  // async asyncData({ $axios }) {
-  //   const { data } = await $axios.get(`https://api.adviceslip.com/advice`)
-  //   return {
-  //     advice: data.slip.advice,
-  //   }
-  // },
+  async asyncData({ $axios }) {
+    const { data } = await $axios.get(`https://api.adviceslip.com/advice`)
+    return {
+      advice: data.slip.advice,
+    }
+  },
   data() {
     return {
       advice: '',
