@@ -37,15 +37,22 @@ export default {
 
     getAdvice() {
       this.random()
-      if (localStorage.getItem('advices').includes(this.number)) {
-        console.log('repetido', this.number)
-        this.getAdvice()
+      const idsSalvos = JSON.parse(localStorage.getItem('advices') || '[]')
+      if (idsSalvos.includes(this.number)) {
+        if (idsSalvos.length < 200) {
+          this.getAdvice()
+        } else {
+          localStorage.clear()
+          this.getAdvice()
+        }
       } else {
         this.$axios
           .get(`https://api.adviceslip.com/advice/${this.number}`)
           .then((res) => {
             this.loading = false
             this.advice = res.data.slip.advice
+            idsSalvos.push(this.number)
+            localStorage.setItem('advices', JSON.stringify(idsSalvos))
           })
       }
     },
