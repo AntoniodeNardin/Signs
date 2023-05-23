@@ -30,31 +30,36 @@ export default {
   },
 
   methods: {
-    random() {
-      const number = Math.floor(Math.random() * 200)
-      this.number = number
-    },
-
     getAdvice() {
-      this.random()
-      const idsSalvos = JSON.parse(localStorage.getItem('advices') || '[]')
-      if (idsSalvos.includes(this.number)) {
-        if (idsSalvos.length < 200) {
-          this.getAdvice()
-        } else {
-          localStorage.clear()
-          this.getAdvice()
-        }
-      } else {
-        this.$axios
-          .get(`https://api.adviceslip.com/advice/${this.number}`)
-          .then((res) => {
-            this.loading = false
-            this.advice = res.data.slip.advice
-            idsSalvos.push(this.number)
-            localStorage.setItem('advices', JSON.stringify(idsSalvos))
-          })
+      const apiKey = process.env.OPENAI_API_KEY
+      const model = 'gpt-3.5-turbo'
+      const url = 'https://api.openai.com/v1/chat/completions'
+      const headers = {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
       }
+      const data = {
+        model,
+        messages: [
+          { role: 'system', content: 'Você é um assistente de bate-papo.' },
+          {
+            role: 'user',
+            content: 'De um conselho em poucas palavras',
+          },
+        ],
+      }
+
+      this.$axios
+        .post(url, data, { headers })
+        .then((response) => {
+          const result = response.data
+          const reply = result.choices[0].message.content
+          this.loading = false
+          this.advice = reply
+        })
+        .catch((error) => {
+          console.error('Erro na requisição:', error.response.data)
+        })
     },
     setBackground() {
       const agora = new Date()
