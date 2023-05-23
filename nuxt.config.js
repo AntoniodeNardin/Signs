@@ -2,6 +2,10 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
 
   ssr: false,
+  env: {
+    apiKey: process.env.OPENAI_API_KEY,
+    baseUrl: process.env.BASE_URL,
+  },
 
   head: {
     title: 'Signs',

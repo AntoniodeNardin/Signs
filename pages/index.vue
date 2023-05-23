@@ -31,7 +31,7 @@ export default {
 
   methods: {
     getAdvice() {
-      const apiKey = process.env.OPENAI_API_KEY
+      const apiKey = process.env.apiKey
       const model = 'gpt-3.5-turbo'
       const url = 'https://api.openai.com/v1/chat/completions'
       const headers = {
