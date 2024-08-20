@@ -1,0 +1,12 @@
+{
+  "pergunta": "Quando um indivíduo pode ser considerado culpado em um crime?",
+  "alternativas": {
+    "a": "Quando há indícios de autoria e provas suficientes da materialidade do delito",
+    "b": "Quando é declarado como culpado pelo juiz sem necessidade de provas",
+    "c": "Quando é réu primário",
+    "d": "Quando a pena é considerada branda",
+    "e": "Quando possui antecedentes criminais"
+  },
+  "gabarito": "a",
+  "justificativa": "De acordo com o princípio da presunção de inocência, todos são considerados inocentes até que provas suficientes sejam apresentadas e a culpabilidade seja estabelecida pelo Juiz. Portanto, a alternativa correta é a letra 'a', pois é necessário que haja indícios de autoria e provas suficientes da materialidade do delito para que um indivíduo seja considerado culpado em um crime."
+}
